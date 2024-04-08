@@ -48,7 +48,7 @@ def prepare_data_feature_extraction(file_path: str, target_speaker_code: str) ->
     return (utterances, speaker_utts)
 
 
-
+# function for preparing data for fine-tuning for perplexity
 def prepare_ppl_fine_tune_data(file_path: str, speaker_code: str, context_size: int) -> list:
     df = pd.read_csv(file_path)
     df = df[(df['is_speech_related'] == True) & (df['is_intelligible'] == True)]
@@ -141,6 +141,7 @@ def prepare_ppl_fine_tune_data(file_path: str, speaker_code: str, context_size: 
     #print(len(candidate_turn_data))
     return candidate_turn_data
 
+# function for preparing files for manual annotation of contingency
 def prepare_files_for_annotation(file_path: str, result_path: str):
     df = pd.read_csv(file_path)
     df = df[(df['is_speech_related'] == True) & (df['is_intelligible'] == True)]
@@ -196,6 +197,7 @@ def prepare_files_for_annotation(file_path: str, result_path: str):
         else:
             turn_switch.append('')
 
+# function for preparing files for automatic annotation of contingency
 def prepare_automatic_annotation_data(file_path: str, target_speaker_code: str, context_size: int, result_file: str):
     df = pd.read_csv(file_path, keep_default_na=False)
     df['is_speech_related'] = df['is_speech_related'].astype('bool')
